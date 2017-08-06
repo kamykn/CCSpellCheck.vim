@@ -210,7 +210,7 @@ function! s:addMatches(windowTextList, ignoreSpellBadList, wordListForDelete, ma
 		if len(l:spellBadList) == 0
 			continue
 		endif
-	
+
 		for s in l:spellBadList
 			let l:lowercaseSpell = tolower(s)
 
@@ -241,7 +241,7 @@ function! s:toFirstCharUpper(lowercaseSpell)
 endfunction
 
 function! s:deleteMatches(wordListForDelete, matchIDDict)
-	let l:matchdelete = a:matchIDDict
+	let l:matchIDDict = a:matchIDDict
 
 	for l in a:wordListForDelete
 		let l:deleteMatchID = get(l:matchIDDict, l, 0)
@@ -251,7 +251,7 @@ function! s:deleteMatches(wordListForDelete, matchIDDict)
 				let l:delIndex = index(values(l:matchIDDict), l:deleteMatchID)
 				if l:delIndex != 1
 					call remove(l:matchIDDict, keys(l:matchIDDict)[l:delIndex])
-				endif 
+				endif
 			endif
 		endif
 	endfor
@@ -278,7 +278,7 @@ function! CCSpellCheck#check()
 	let [l:wordListForDelete, b:matchIDDict] = s:addMatches(l:windowTextList, l:ignoreSpellBadList, l:wordListForDelete, b:matchIDDict)
 
 	if len(l:wordListForDelete) == 0
-		return 
+		return
 	endif
 
 	let b:matchIDDict = s:deleteMatches(l:wordListForDelete, b:matchIDDict)
@@ -305,7 +305,7 @@ function! CCSpellCheck#OpenFixList()
 	let l:selected     = inputlist(l:spellSuggestListForInputList)
 	let l:selectedWord = l:spellSuggestListForReplace[l:selected - 1]
 
-	let l:replace  = strpart(l:cword, 0, l:wordStartPosInCWord) 
+	let l:replace  = strpart(l:cword, 0, l:wordStartPosInCWord)
 	let l:replace .= l:selectedWord
 	let l:replace .= strpart(l:cword, l:wordStartPosInCWord + strlen(l:currentCamelCaseWord), strlen(l:cword))
 
