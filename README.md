@@ -26,7 +26,7 @@ Zc
 ```
 
 ### 2.iii. Add word as good spell list.
-Add the selected word in visual mode with the following command
+Add the selected word in visual mode with the following command.  
 CCSpellcheck use 'spell' commands provided by vim as default.
 
 FYI:
