@@ -169,7 +169,7 @@ function! s:getSpellSuggestList(spellSuggestList, currentCamelCaseWord, cword)
 			let l:suggestWords = split(s, ' ')
 			let s = ''
 			for w in l:suggestWords
-				let s = s . toFirstCharUpper(w)
+				let s = s . s:toFirstCharUpper(w)
 			endfor
 		endif
 
