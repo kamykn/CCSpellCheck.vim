@@ -38,7 +38,7 @@ function! s:getSpellBadList(text)
 	return l:spellBadList
 endfunction
 
-functio! s:filterSpellBadList(wordList) 
+functio! s:filterSpellBadList(wordList)
 	let l:spellBadList = []
 	let l:currentPos   = 0
 
@@ -96,7 +96,7 @@ function! s:searchCurrentWordOnCamelCase(lineStr, cword, currentColPos)
 	let [l:wordPos, l:cwordPos] = s:getCamelCaseWordPos(a:lineStr, a:cword, a:currentColPos)
 
 	" 現在のカーソル位置がcwordの中で何文字目か
-	let l:colPosInCWord = a:currentColPos - l:wordPos 
+	let l:colPosInCWord = a:currentColPos - l:wordPos
 	" その単語がcwordの中で何文字目から始まるか
 	let l:wordStartPosInCWord = l:wordPos - l:cwordPos
 
@@ -113,7 +113,7 @@ function! s:searchCurrentWordOnCamelCase(lineStr, cword, currentColPos)
 	return [get(l:checkWordsList, 0, a:cword), 0, 0]
 endfunction
 
-function! s:getCamelCaseWordPos(lineStr, cword, currentColPos) 
+function! s:getCamelCaseWordPos(lineStr, cword, currentColPos)
 	" 単語の末尾よりもカーソルが左だった場合、currentColPos-wordIndexが単語内の何番目にカーソルがあったかが分かる
 	" return [キャメルケース上のカーソルがある単語の開始位置, cword全体の開始位置]
 
@@ -124,7 +124,7 @@ function! s:getCamelCaseWordPos(lineStr, cword, currentColPos)
 			return [i, get(l:wordIndexList, 0, 0)]
 		endif
 	endfor
-	
+
 	return [0, 0]
 endfunction
 
@@ -148,7 +148,7 @@ function! s:findWordIndexList(lineStr, cword)
 	return l:findWordIndexList
 endfunction
 
-function! s:getSpellSuggestList(spellSuggestList, currentCamelCaseWord, cword) 
+function! s:getSpellSuggestList(spellSuggestList, currentCamelCaseWord, cword)
 	" 変換候補選択用リスト
 	let l:spellSuggestListForInputList = []
 	" 変換候補リプレイス用リスト
@@ -176,7 +176,7 @@ function! s:getSpellSuggestList(spellSuggestList, currentCamelCaseWord, cword)
 		" 先頭大文字小文字
 		if match(a:currentCamelCaseWord[0], '\v[A-Z]\C') == -1
 			let s = tolower(s)
-		else 
+		else
 			let s = s:toFirstCharUpper(s)
 		endif
 
@@ -246,13 +246,14 @@ function! s:deleteMatches(wordListForDelete, matchIDDict)
 	for l in a:wordListForDelete
 		let l:deleteMatchID = get(l:matchIDDict, l, 0)
 		if l:deleteMatchID > 0
-			let l:isMatchDeleteSuccess = (matchdelete(l:deleteMatchID) == 0)
-			if l:isMatchDeleteSuccess
+			try
+				matchdelete(l:deleteMatchID) == 0
+			finally
 				let l:delIndex = index(values(l:matchIDDict), l:deleteMatchID)
 				if l:delIndex != 1
 					call remove(l:matchIDDict, keys(l:matchIDDict)[l:delIndex])
 				endif
-			endif
+			endtry
 		endif
 	endfor
 
@@ -261,6 +262,10 @@ endfunction
 
 function! CCSpellCheck#check()
 	if &readonly
+		return
+	endif
+
+	if g:enableCCSpellChecker == 0
 		return
 	endif
 

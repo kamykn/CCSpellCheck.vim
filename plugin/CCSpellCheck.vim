@@ -64,5 +64,10 @@ if !hasmapto('<Plug>(UndoTemporaryCCSpellBad)')
 	silent! vmap <unique> ZUW <Plug>(UndoTemporaryCCSpellBad)
 endif
 
+augroup CCSpellCheck
+	autocmd!
+	autocmd BufWinEnter,BufWritePost * call CCSpellCheck#check()
+augroup END
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
