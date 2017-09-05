@@ -8,14 +8,25 @@ NeoBundle 'kmszk/CCSpellCheck.vim'
 ```
 
 ## 2.Useage
-### 2.i. Highlight bad spells.
-You can add the following line to your vimrc files to highlight bad spells.
+### 2.i. Options.
+CCSpellChecker offers the following options.
 
 ```
-augroup CCSpellCheck
-	autocmd!
-	autocmd BufWinEnter,BufWritePost * call CCSpellCheck#check()
-augroup END
+" Use neocomplete. (default 1)
+let g:CCSpellCheckEnable = 1
+
+" Setting for start checking min length of character. (default 1)
+let g:CCSpellCheckMinCharacterLength = 4
+
+" Setting for max suggest words list length.. (default 50)
+let g:CCSpellCheckMaxSuggestWords = 50
+
+
+" Override highlight setting. (default 'CCSpellBad')
+let g:CCSpellCheckMatchGroupName = 'CCSpellBad'
+
+hi clear CCSpellBad
+hi CCSpellBad cterm=underline
 ```
 
 ### 2.ii. Correct bad spell.
@@ -26,7 +37,7 @@ Zc
 ```
 
 ### 2.iii. Add word as good spell list.
-Add the selected word in visual mode with the following command.  
+Add the selected word in visual mode with the following command.
 CCSpellcheck use 'spell' commands provided by vim as default.
 
 FYI:

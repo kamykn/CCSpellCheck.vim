@@ -13,11 +13,28 @@ let g:loaded_CCSpellCheck = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-let g:CCSpellCheckMinWordLength   = 4
-let g:CCSpellCheckMaxSuggestWords = 50
-let g:CCSpellCheckMatchGroupName  = 'CCSpellBad'
 
-execute ('highlight ' . g:CCSpellCheckMatchGroupName . ' cterm=reverse ctermfg=yellow gui=reverse guifg=yellow')
+if !exists('g:EnableCCSpellCheck')
+	let g:EnableCCSpellCheck = 1
+endif
+
+if !exists('g:CCSpellCheckMinCharacterLength')
+	let g:CCSpellCheckMinCharacterLength = 4
+endif
+
+if !exists('g:CCSpellCheckMaxSuggestWords')
+	let g:CCSpellCheckMaxSuggestWords = 50
+endif
+
+if !exists('g:CCSpellCheckMatchGroupName')
+	let g:CCSpellCheckMatchGroupName = 'CCSpellBad'
+endif
+
+
+if !exists('g:CCSpellCheckUseMySetting')
+	execute ('highlight ' . g:CCSpellCheckMatchGroupName . ' cterm=reverse ctermfg=yellow gui=reverse guifg=yellow')
+endif 
+
 
 nnoremap <silent> <Plug>(OpenCCSpellFixList) :call CCSpellCheck#OpenFixList()<CR>
 if !hasmapto('<Plug>(OpenCCSpellFixList)')
@@ -64,10 +81,12 @@ if !hasmapto('<Plug>(UndoTemporaryCCSpellBad)')
 	silent! vmap <unique> ZUW <Plug>(UndoTemporaryCCSpellBad)
 endif
 
+
 augroup CCSpellCheck
 	autocmd!
 	autocmd BufWinEnter,BufWritePost * call CCSpellCheck#check()
 augroup END
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

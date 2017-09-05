@@ -42,10 +42,6 @@ functio! s:filterSpellBadList(wordList)
 	let l:spellBadList = []
 	let l:currentPos   = 0
 
-	if !exists('g:CCSpellCheckMinWordLength')
-		let g:CCSpellCheckMinWordLength = 4
-	endif
-
 	for w in a:wordList
 		if strlen(w) <= 1
 			continue
@@ -64,7 +60,7 @@ functio! s:filterSpellBadList(wordList)
 		endif
 
 		" 特定文字数以上のみ検出
-		if l:wordLength >= g:CCSpellCheckMinWordLength
+		if l:wordLength >= g:CCSpellCheckMinCharacterLength
 			call add(l:spellBadList, l:spellBadWord)
 		endif
 	endfor
@@ -247,7 +243,7 @@ function! s:deleteMatches(wordListForDelete, matchIDDict)
 		let l:deleteMatchID = get(l:matchIDDict, l, 0)
 		if l:deleteMatchID > 0
 			try
-				matchdelete(l:deleteMatchID) == 0
+				call matchdelete(l:deleteMatchID)
 			finally
 				let l:delIndex = index(values(l:matchIDDict), l:deleteMatchID)
 				if l:delIndex != 1
@@ -265,7 +261,7 @@ function! CCSpellCheck#check()
 		return
 	endif
 
-	if g:enableCCSpellChecker == 0
+	if g:EnableCCSpellCheck == 0
 		return
 	endif
 
