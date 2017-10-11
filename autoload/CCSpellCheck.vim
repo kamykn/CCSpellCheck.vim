@@ -244,6 +244,8 @@ function! s:deleteMatches(wordListForDelete, matchIDDict)
 		if l:deleteMatchID > 0
 			try
 				call matchdelete(l:deleteMatchID)
+			catch
+				" エラー読み捨て
 			finally
 				let l:delIndex = index(values(l:matchIDDict), l:deleteMatchID)
 				if l:delIndex != 1
