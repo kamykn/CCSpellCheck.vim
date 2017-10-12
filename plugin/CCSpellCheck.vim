@@ -30,10 +30,16 @@ if !exists('g:CCSpellCheckMatchGroupName')
 	let g:CCSpellCheckMatchGroupName = 'CCSpellBad'
 endif
 
-if !exists('g:CCSpellCheckUseMySetting')
-	execute ('highlight ' . g:CCSpellCheckMatchGroupName . ' cterm=reverse ctermfg=yellow gui=reverse guifg=yellow')
-endif
-
+let s:listOfCCSpellCheckHi = ""
+try
+	let s:listOfCCSpellCheckHi = execute('highlight ' . g:CCSpellCheckMatchGroupName)
+	echo s:listOfCCSpellCheckHi
+catch
+finally
+	if strlen(s:listOfCCSpellCheckHi) == 0
+		execute ('highlight ' . g:CCSpellCheckMatchGroupName . ' cterm=reverse ctermfg=yellow gui=reverse guifg=yellow')
+	endif
+endtry
 
 nnoremap <silent> <Plug>(OpenCCSpellFixList) :call CCSpellCheck#OpenFixList()<CR>
 if !hasmapto('<Plug>(OpenCCSpellFixList)')
