@@ -71,6 +71,6 @@ ZUG
 ZUW
 ```
 
-### Articles (in Japanese)
+## 3.Articles (in Japanese)
 Vimでキャメルケースのスペルチェックをするプラグインを作った
 https://qiita.com/kmszk/items/ce536aff00f44960e811
