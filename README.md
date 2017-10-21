@@ -12,10 +12,10 @@ NeoBundle 'kmszk/CCSpellCheck.vim'
 CCSpellChecker offers the following options.
 
 ```
-" Use neocomplete. (default 1)
+" Use CCSpellCheck.vim. (1 / 0) (default 1)
 let g:CCSpellCheckEnable = 1
 
-" Setting for start checking min length of character. (default 1)
+" Setting for start checking min length of character. (default 4)
 let g:CCSpellCheckMinCharacterLength = 4
 
 " Setting for max suggest words list length. (default 50)
