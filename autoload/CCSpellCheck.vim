@@ -213,13 +213,15 @@ function! s:addMatches(windowTextList, ignoreSpellBadList, wordListForDelete, ma
 			if index(l:ignoreSpellBadList, l:lowercaseSpell) == -1
 				" lowercase
 				let l:matchID = matchadd(g:CCSpellCheckMatchGroupName, '\v([A-Za-z]@<!)' . l:lowercaseSpell . '([A-Z]@=)\C')
+				execute 'let l:matchIDDict.' . l:lowercaseSpell . ' = ' . l:matchID
 
 				" first character uppercase spell
 				let l:firstCharUpperSpell = s:toFirstCharUpper(l:lowercaseSpell)
 				let l:matchID = matchadd(g:CCSpellCheckMatchGroupName, '\v' . l:firstCharUpperSpell . '([a-z]@!)\C')
+				execute 'let l:matchIDDict.' . l:firstCharUpperSpell . ' = ' . l:matchID
 
+				" Management of the spelling list in the lower case
 				call add(l:ignoreSpellBadList, l:lowercaseSpell)
-				execute 'let l:matchIDDict.' . l:lowercaseSpell . ' = ' . l:matchID
 			endif
 
 			let l:delIndex = index(l:wordListForDelete, l:lowercaseSpell)
