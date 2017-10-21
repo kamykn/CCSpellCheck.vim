@@ -33,7 +33,7 @@ highlight CCSpellBad cterm=reverse ctermfg=magenta gui=reverse guifg=magenta
 Move the cursor over the wrong spelling and enter the following commands
 
 ```
-Zc
+Z=
 ```
 
 ### 2.iii. Add word as good spell list.

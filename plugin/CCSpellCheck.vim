@@ -43,7 +43,7 @@ endtry
 
 nnoremap <silent> <Plug>(OpenCCSpellFixList) :call CCSpellCheck#OpenFixList()<CR>
 if !hasmapto('<Plug>(OpenCCSpellFixList)')
-	silent! nmap <unique> Zc <Plug>(OpenCCSpellFixList)
+	silent! nmap <unique> Z= <Plug>(OpenCCSpellFixList)
 endif
 
 vnoremap <silent> <Plug>(AddCCSpellGood) zg :call CCSpellCheck#check()<CR>
